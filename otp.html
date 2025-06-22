@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <link rel="stylesheet" href="/static/login1.css">
+</head>
+<body>
+    <div class="headtop">
+        <div class="row-logo">
+            <img src="/static/project-Img/logo.png">
+        </div>
+        <h1>OTP Verification</h1>
+        <p>Enter the OTP sent to your registered email.</p>
+        <form action="{{ url_for('verify_otp') }}" method="post" autocomplete="off">
+            <div class="msg">{{ msg }}</div>
+            <div class="row">
+                <input id="otp" type="text" name="otp" maxlength="6" placeholder="Enter OTP" required>
+            </div>
+            <div class="row">
+                <input type="submit" name="submit" value="Verify OTP">
+            </div>
+            <p class="resend" onclick="resendOTP()">Resend OTP</p>
+        </form>
+    </div>
+    
+    <script>
+        function resendOTP() {
+            alert("New OTP sent! Check your email.");
+            // You can add an AJAX call here to request a new OTP from the backend
+        }
+    </script>
+</body>
+</html>

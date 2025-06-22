@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/lostcss.css">
+</head>
+<body>
+    <form action="/submitll_event" method="POST" autocomplete="off" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <div class="headtop">
+            <div class="logo">
+                <img src="/static/project-Img/logo.png">
+           </div>
+           <h2>Lost Form</h2>
+            <div class="row">
+                <label>What item you Lost:</label>
+                <input id="item_namel" type="text" name="item_namel" placeholder="What item.." required>
+            </div>
+            <div class="row">
+                <label>Discription of that item:</label>
+                <input id="dis_iteml" type="text" name="dis_iteml"  placeholder="Discription of.." required><br>
+            </div>
+            <div class="row">
+                <label>Full Name:</label>
+                <input id="f_namel" type="text" name="f_namel" placeholder="Full name.." required>
+            </div>
+            <div class="row">
+                <label>Contact no:</label>
+                <input id="contactl" type="text" name="contactl" placeholder="Contact number.." pattern="[0-9]{10}" title="Please Entar 10-digit number!!" required>
+            </div>
+            <div class="row">
+                <label>Email address:</label>
+                <input id="emaill" type="text" name="emaill" placeholder="Email address.." required>
+            </div>
+            <div class="row">
+                <label>Date when you lost that item:</label>
+                <input id="datel" type="date" name="datel" required>
+            </div>
+            <div class="row1">
+                <label for="p_photo1">Product Photo:</label>
+                <input type="file" id="p_photo1" name="p_photo1" accept="image/*">
+                <small>Accepted formats: PNG, JPG, JPEG</small>
+            </div>
+             <input type="submit" name="submit" value="submit">
+        </div>
+    </form>
+    <script>
+        function validateForm() {
+            const requiredFields = ['item_namel', 'dis_iteml', 'f_namel', 'contactl', 'emaill', 'datel'];
+            for (const fieldId of requiredFields) {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    alert('Please fill out all required fields.');
+                    field.focus();
+                    return false;
+                }
+            }
+            if (!document.getElementById('emaill').value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                alert('Please enter a valid email address.');
+                document.getElementById('emaill').focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

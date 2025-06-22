@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost & Found</title>
+  <link rel="stylesheet" href="/static/indexcss.css">
+  <style>
+    .section-divider {
+        border-top: 2px solid white;
+        background-color: #040249;
+        margin: 5px 5px;
+    }
+    .delete-btn {
+        width: 100%;
+        background-color: #dc3545;
+        color: white;
+        font-size: 16px;
+        padding: 8px 16px;
+        margin-top: 10px;
+        border: 2px solid #dc3545;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .delete-btn:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+        transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-dark" style="height: 100px;" >
+  
+    <a class="navbar-brand" action="index.html" method="post" autocomplete="off">
+      <img src="/static/project-Img/logo.png" alt="logo" style="width:100px; height: 90px;">
+    </a>
+
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('lost_form')}}"><b>Lost</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('found_form')}}"><b>Found</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('all_lost')}}"><b>All Lost Items</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('all_found')}}"><b>All Found Items</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('matching_items')}}"><b>Matching Items</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="aboutus"><b>About Us</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="con"><b>Contact</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('logout')}}"><b>Logout</b></a>
+      </li>
+    </ul>
+  </nav>
+
+<div id="main" class="center">
+
+  <h1><b>Find-It-Now</b><br>Lost & Found</h1>
+  <!-- <h1>Lost & Found</h1> -->
+
+  <a href="{{url_for('lost_form')}}"><button class="lost">Lost Something</button></a>
+  <a href="{{url_for('found_form')}}"><button class="found">Found Something</button></a>
+</div>
+
+<div class="section-divider">
+<h2 style="color: white;">Recently Found Items</h2>
+<div class="horizontal-list">
+  <ul>
+      {% for item in found_items %}
+      <li>
+          <div style="text-align: center;">
+              {% if item.item_img_data_url %}
+                  <img src="{{ item.item_img_data_url }}" 
+                       alt="Found Item Image" 
+                       class="item-image">
+              {% else %}
+                  <img src="/static/project-Img/no-image.png" alt="No Image Available" class="item-image">
+              {% endif %}
+          </div>
+          <div class="info">
+              <h3>{{ item.item_name }}</h3>
+              <p><strong>Description:</strong> {{ item.dis_item }}</p>
+              <p><strong>Contact:</strong> {{ item.contact }}</p>
+              <p><strong>Found by:</strong> {{ item.f_name }}</p>
+              <p><strong>Date:</strong> {{ item.date }}</p>
+          </div>
+      </li>
+      {% endfor %}
+  </ul>
+</div>
+</div>
+
+<div class="section-divider">
+<h2 style="color: white;">Recently Lost Items</h2>
+<div class="horizontal-list">
+    <ul>
+        {% for item in lost_items %}
+        <li>
+            <div style="text-align: center;">
+                {% if item.item_img_data_url %}
+                    <img src="{{ item.item_img_data_url }}" 
+                         alt="Lost Item Image" 
+                         class="item-image">
+                {% else %}
+                    <img src="/static/project-Img/no-image.png" alt="No Image Available" class="item-image">
+                {% endif %}
+            </div>
+            <div class="info">
+                <h3>{{ item.item_namel }}</h3>
+                <p><strong>Description:</strong> {{ item.dis_iteml }}</p>
+                <p><strong>Contact:</strong> {{ item.contactl }}</p>
+                <p><strong>Lost by:</strong> {{ item.f_namel }}</p>
+                <p><strong>Date:</strong> {{ item.datel }}</p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</div>
+
+
+<div class="discription">
+  <h4><u>Lost items:</u></h4>
+  <p><tab>Clicking the "Lost Something" button initiates a streamlined process <br>
+          for users to input details about their lost belongings.Fields may include<br>
+          item description, date and location of loss, and any unique identifiers.</tab></p>
+  <h4><u>Found items:</u></h4>
+  <p><tab>The "Found Something" button allows users to register items they've found,<br> 
+          contributing to a centralized database.Similar to lost item registration, it<br> 
+          prompts users to provide relevant details, creating a comprehensive record.</tab></p>
+  <h4><u>List of found items:</u></h4>
+  <p><tab>The software maintains a dynamic list of found items, facilitating easy browsing<br>
+          for both users who lost items and those who found them.Each entry includes key<br> 
+          information about the item, making it accessible and efficient.</tab></p>
+</div>      
+   <div class="about">
+       <h3 id="AB">About us:</h3><br>
+       <p id="AB">Developed by:<u><i><b>New World Innovation.</b></u></i></p>
+       <p id="AB"><i><u>Members:</u></i><br><tab>1.Rathod Uday <br> 2.Parmar Foram<br> 3.Chauhan Priyanshu<br> 4.Rangee Dimple<br><br>(All Members are student of<br>
+          <u><i>Computer Application</i></u>(SY) and<br>enroll at <u>Silver Oak University</u>.)</tab></p>
+   </div>  
+   <div class="about1">
+     <h3 id="cnt">Contact:</h3>
+     <p id="cnt">
+          <a id="mailme" href="mailto:rathoduday5277@gmail.com">Rathod Uday</a> 
+       <br><a id="mailme" href="mailto:foramparmar2682004@gmail.com">Parmar Foram</a> 
+       <br><a id="mailme" href="mailto:chauhanprince419@gmail.com">Chauhan Priyanshu</a>
+       <br><a id="mailme" href="mailto:rangeedimple123@gmail.com">Rangee Dimple</a>
+     </p>
+   </div> 
+
+<footer class="footer">
+  
+  <ul class="social-icon">
+    <li class="social-icon__item"><a class="social-icon__link" href="#">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </a></li>
+    <li class="social-icon__item"><a class="social-icon__link" href="#">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </a></li>
+    <li class="social-icon__item"><a class="social-icon__link" href="#">
+        <ion-icon name="logo-linkedin"></ion-icon>
+      </a></li>
+    <li class="social-icon__item"><a class="social-icon__link" href="#">
+        <ion-icon name="logo-instagram"></ion-icon>
+      </a></li>
+  </ul>
+  <ul class="menu">
+    <li class="menu__item"><a class="menu__link" href="#">Home</a></li>
+    <li class="menu__item"><a class="menu__link" href="#AB">About</a></li>
+    <li class="menu__item"><a class="menu__link" href="#main">Services</a></li>
+    <li class="menu__item"><a class="menu__link" href="#cnt">Contact</a></li>
+
+  </ul>
+  <div class="waves">
+    <div class="wave" id="wave1"></div>
+    <div class="wave" id="wave2"></div>
+    <div class="wave" id="wave3"></div>
+    <div class="wave" id="wave4"></div>
+  </div><br><br>
+</footer>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+<script>
+  
+  document.getElementById("aboutus").addEventListener("click",function(){
+    document.body.scrollIntoView({behavior:"smooth",block:"end"});
+  });
+
+  document.getElementById("con").addEventListener("click",function() {
+    document.body.scrollIntoView({behavior:"smooth",block:"end"});
+  });
+ </script>
+
+</body>
+</html>

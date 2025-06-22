@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/foundcss.css">
+</head>
+<body>
+    <form action="/submit_event" method="POST" autocomplete="off" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <div class="headtop">
+            <div class="logo">
+                <img src="/static/project-Img/logo.png">
+           </div>
+           <h2>Found Form</h2>
+            <div class="row">
+                <label>What item you Found:</label>
+                <input id="item_name" type="text" name="item_name" placeholder="What item.." required>
+            </div>
+            <div class="row">
+                <label>Discription of that item:</label>
+                <input id="dis_item" type="text" name="dis_item"  placeholder="Discription of.." required><br>
+            </div>
+            <div class="row">
+                <label>Full Name of founder:</label>
+                <input id="f_name" type="text" name="f_name" placeholder="Full name of founder.." required>
+            </div>
+            <div class="row">
+                <label>Contact no of founder:</label>
+                <input id="contact" type="text" name="contact" placeholder="Contact number of founder.." pattern="[0-9]{10}" title="Please Entar 10-digit number!!" required>
+            </div>
+            <div class="row">
+                <label>Email of founder:</label>
+                <input id="email" type="text" name="email" placeholder="Email address of founder.." required>
+            </div>
+            <div class="row">
+                <label>Date when you found that item:</label>
+                <input id="date" type="date" name="date" required>
+            </div>
+            <div class="row1">
+                <label for="item_img">Product Photo:</label>
+                <input type="file" id="item_img" name="item_img" accept="image/*" required>
+                <small>Accepted formats: PNG, JPG, JPEG</small>
+            </div>
+            <div class="submit-row">
+                <input type="submit" name="submit" value="submit">
+            </div>
+        </div>
+    </form>
+    <script>
+        function validateForm() {
+            const requiredFields = ['item_name', 'dis_item', 'f_name', 'contact', 'email', 'date'];
+            for (const fieldId of requiredFields) {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    alert('Please fill out all required fields.');
+                    field.focus();
+                    return false;
+                }
+            }
+            if (!document.getElementById('email').value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                alert('Please enter a valid email address.');
+                document.getElementById('email').focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

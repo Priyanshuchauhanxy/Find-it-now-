@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=yes">
+    <title>Matching Items</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        .match-card {
+            margin: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+        }
+        .item-image {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .matches-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background-color: rgb(1, 1, 69);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: rgb(1, 1, 69);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .contact-btn {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s;
+            color: white;
+        }
+        .email-btn {
+            background-color: #28a745;
+        }
+        .phone-btn {
+            background-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Potential Matches</h1>
+        <a href="{{ url_for('index') }}" class="btn btn-light">Back to Home</a>
+    </div>
+    
+    <div class="matches-container">
+        {% for match in matches %}
+        <div class="match-card col-md-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Lost Item</h3>
+                    {% if match.lost_item.item_img_data_url %}
+                    <img src="{{ match.lost_item.item_img_data_url }}" alt="Lost Item" class="item-image">
+                    {% endif %}
+                    <p><strong>Item:</strong> {{ match.lost_item.item_namel }}</p>
+                    <p><strong>Description:</strong> {{ match.lost_item.dis_iteml }}</p>
+                    <p><strong>Lost by:</strong> {{ match.lost_item.f_namel }}</p>
+                    <div class="contact-buttons">
+                        <p><strong>Contact:</strong> {{ match.lost_item.contactl }}</p>
+                        <p><strong>Email:</strong> {{ match.lost_item.emaill }}</p>
+                        <a href="mailto:{{ match.lost_item.emaill }}?subject=Regarding%20Lost%20Item%20-%20{{ match.lost_item.item_namel }}&body=Hello,%0D%0A%0D%0AI%20found%20a%20similar%20item%20and%20would%20like%20to%20help.%0D%0A%0D%0ARegards" 
+                           class="contact-btn email-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            Email Person
+                        </a>
+                        <a href="https://wa.me/91{{ match.lost_item.contactl }}" target="_blank" class="contact-btn whatsapp-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Found Item</h3>
+                    {% if match.found_item.item_img_data_url %}
+                    <img src="{{ match.found_item.item_img_data_url }}" alt="Found Item" class="item-image">
+                    {% endif %}
+                    <p><strong>Item:</strong> {{ match.found_item.item_name }}</p>
+                    <p><strong>Description:</strong> {{ match.found_item.dis_item }}</p>
+                    <p><strong>Found by:</strong> {{ match.found_item.f_name }}</p>
+                    <div class="contact-buttons">
+                        <p><strong>Contact:</strong> {{ match.found_item.contact }}</p>
+                        <p><strong>Email:</strong> {{ match.found_item.email }}</p>
+                        <a href="mailto:{{ match.found_item.email }}?subject=Regarding%20Found%20Item%20-%20{{ match.found_item.item_name }}&body=Hello,%0D%0A%0D%0AI%20believe%20this%20might%20be%20my%20lost%20item.%0D%0A%0D%0ARegards" 
+                           class="contact-btn email-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            Email Founder
+                        </a>
+                        <a href="https://wa.me/91{{ match.found_item.contact }}" target="_blank" class="contact-btn whatsapp-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
