@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="/static/register1.css">
+</head>
+<body>
+    <form action="{{url_for('register')}}" method="POST" autocomplete="off">
+        <div class="headtop">
+            <div class="headerrow">
+                <div class="header-col">
+                    <img src="/static/project-Img/logo.png">
+                </div>
+                <div class="header-col">
+                    <div class="subname">Sign In</div>
+                </div>
+            </div>
+            <div class="msg">{{ msg }}</div>
+            <div class="row">
+                <div class="row-col">
+                    <input id="username" type="text" name="username" placeholder="Fullname" pattern="[A-Za-z ]+" title="Please enter only alphabet characters and spaces" required>
+                </div>
+                <div class="row-col">
+                    <input id="enroll" type="text" name="enroll" placeholder="Enrollment No(last 5 numbers only)" pattern="[0-9]{5}" title="Please Enter last 5-digit enrollment number!" required>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="row-col">
+                    <input id="email" type="email" name="email" placeholder="Email Id">
+                </div>
+                <div class="row-col">
+                    <input id="contact" type="tel" name="contact" placeholder="Contact no" pattern="[0-9]{10}" title="Please Enter 10-digit number!!" required>
+                </div>  
+            </div>
+            <div class="row">
+                <div class="row-col">
+                    <input id="password" type="password" name="password" placeholder="Password" title="Please Enter Password" required>
+                </div>
+                <div class="row-col">
+                    <input id="con_password" type="password" name="con_password" placeholder="Confirm Password" title="Please confirm Password" required>
+                    <span id="password-error"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row-col">
+                    <input id="branch" type="text" name="branch" placeholder="Enter Branch" title="Please Enter Your Branch" required>
+                </div> 
+                <div class="row-col">
+                    <input id="sem" type="number" name="sem" placeholder="Semester" title="Please Enter your current Semester" required>
+                </div> 
+            </div>
+            <div class="row-col">
+                <input id="submit" type="submit" name="submit" value="Sign In">
+                <p>Already have an account ? <a href="{{url_for('login')}}">Login Here</a></p>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $('#con_password').on('keyup', function () {
+                var password = $('#password').val();
+                var confirmPassword = $(this).val();
+    
+                if (password === confirmPassword) {
+                    $('#password-error').text('');
+                } else {
+                    $('#password-error').text('Passwords do not match').css('color', 'yellow');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

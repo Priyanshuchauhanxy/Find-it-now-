@@ -1,0 +1,79 @@
+body{
+    background-color: rgb(21, 23, 75);
+    background-size: 100% 810px;
+}
+
+.headtop{
+    border: 0px solid;
+    height: 530px;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 5%;
+    border-radius: 25px;
+    box-shadow: 0px 0px 15px rgb(154, 153, 153);
+    background-color:rgb(3, 5, 57) ;
+    padding: 15px;
+}
+.headtop h1{
+    color: wheat;
+    text-align: center;
+    margin-top: -80px;
+    margin-bottom: 50px;
+}
+.msg{
+    background-color: wheat;
+    color: rgb(88, 28, 28);
+}
+.row{
+    height: 45px;
+    padding: 15px;
+    margin-top: 10px;
+}
+.row input[type="text"],input[type="password"],input[type="number"]{
+    height: 40px;
+    width: 97%;
+    padding-left: 10px;
+    background-color: transparent;
+    border-color: #fafbfb;
+    color: #fff8f8;
+    font-size: 16px;
+    border-radius: 30px;
+}
+.row input[type="submit"]{
+    height: 45px;
+    width: 180px;
+    border: 1px solid;
+    margin-left: 200px;
+    background-color: #0080bf;
+    border-radius: 50px;
+    font-weight: bold;
+}
+.row input[type="submit"]:hover{
+    background-color: gray;
+}
+p{
+    height: 15px;
+    font-size: 15px;
+    text-align: center;
+    color: wheat;
+}
+a{
+    color: wheat;
+    margin-left: 10px;
+}
+a:hover{
+    border: 1px solid;
+    color: darkgray;
+}
+.row-logo{
+    border: 0px solid;
+    height: 20%;
+    width: 20%;
+    margin-left: -40px;
+}
+.row-logo img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50px;
+    margin-left: 40px;
+}
